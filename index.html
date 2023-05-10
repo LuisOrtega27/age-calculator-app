@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- displays site properly based on user's device -->
+
+  <link rel="icon" type="image/png" sizes="32x32" href="./assets/images/favicon-32x32.png">
+  
+  <link rel="stylesheet" href="./styles.css">
+  
+  <title>Frontend Mentor | Age calculator app</title>
+
+</head>
+<body>
+
+  <div class="wrapper">
+    
+    <div class="age-calc">
+  
+      <form action="#" class="age-calc_form" id="age-calc_form">
+        
+        <div class="input-group">
+
+          <input type="text" name="day" class="age-calc_input" autocomplete="off" placeholder="DD">
+        
+          <label for="day">day</label>
+        
+          <p class="error-msg">This field is required</p>
+        
+        </div>
+  
+        <div class="input-group">
+
+          <input type="text" name="month" class="age-calc_input" autocomplete="off" placeholder="MM">
+        
+          <label for="month">month</label>
+        
+          <p class="error-msg">This field is required</p>
+        
+        </div>
+        
+        <div class="input-group">
+
+          <input type="text" name="year" class="age-calc_input" autocomplete="off" placeholder="YYYY">
+        
+          <label for="year">year</label>
+        
+          <p class="error-msg">This field is required</p>
+        
+        </div>
+  
+  
+        <div class="age-calc_line">
+
+          <button type="submit" id="age-calc_btn">
+
+            <img src="./assets/images/icon-arrow.svg" alt="submit" class="age-calc_btn-icon">
+            
+          </button>
+        </div>
+      
+      </form>
+      
+      <!-- ------------------------------------------------------- -->
+  
+      <div class="age-calc_displayer">
+        
+        <p class="display">
+          <span class="hyphens" id="years_display">--</span>years
+        </p>
+
+        <p class="display">
+          <span class="hyphens" id="months_display">--</span>months
+        </p>
+
+        <p class="display">
+          <span class="hyphens" id="days_display">--</span>days
+        </p>
+        
+      </div>
+  
+    </div>
+    
+  </div>
+    
+  <footer>
+    <div class="attribution">
+      Challenge by <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>. 
+      Coded by <a href="#">Luis F. Ortega</a>.
+    </div>
+  </footer>
+
+
+  <script src="./scripts.js"></script>
+
+</body>
+</html>

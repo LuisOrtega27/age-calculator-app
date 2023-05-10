@@ -1,0 +1,204 @@
+/*
+    ## Layout
+
+    The designs were created to the following widths:
+
+    - Mobile: 375px
+    - Desktop: 1440px
+
+    ## Typography
+
+    ### Body Copy
+
+    - Font size (inputs): 32px
+
+    ### Font
+
+    - Family: [Poppins](https://fonts.google.com/specimen/Poppins)
+    - Weights: 400i, 700, 800i
+*/
+
+@font-face {
+    font-family: poppins;
+    src: url(./assets/fonts/Poppins-Regular.ttf);
+}
+
+@font-face {
+    font-family: w-poppins;
+    src: url(./assets/fonts/Poppins-ExtraBold.ttf);
+}
+
+:root{
+    /* ## Colors */
+    
+    /* ### Primary */
+    --purple: hsl(259, 100%, 65%);
+    --lightRed: hsl(0, 100%, 67%);
+    
+    /* ### Neutral */
+    --white: hsl(0, 0%, 100%);
+    --offWhite: hsl(0, 0%, 94%);
+    --lightGrey: hsl(0, 0%, 86%);
+    --smokeyGrey: hsl(0, 1%, 44%);
+    --offBlack: hsl(0, 0%, 8%);
+}
+
+html {
+    box-sizing: border-box;
+}
+*, *:before, *:after {
+    box-sizing: inherit;
+}
+
+
+body{
+    
+    display: grid;
+    grid-template-rows: 1fr auto;
+    height: 100vh;
+    margin: 0;
+    
+    font-family: poppins;
+    font-size: 32px;
+    
+    background-color: var(--lightGrey);
+}
+
+.wrapper{
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.age-calc{
+    width: 700px;
+    background-color: var(--white);
+    padding: 40px;
+    border-radius: 15px 15px 200px 15px;
+}
+
+.age-calc_form{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    gap: 10px;
+}
+
+.input-group{
+    position: relative;
+    margin-top: 20px;    
+}
+
+.input-group > input{
+    outline: none;
+    height: 100%;
+    width: 100%;
+    padding: 15px;
+    font-size: 32px;
+    font-weight: 700;
+    border: solid 1px var(--lightGrey);
+    border-radius: 5px;
+}
+
+
+.input-group label,
+.error-msg{
+    position: absolute;
+    font-size: 0.5em;
+}
+
+.input-group label{
+    top: -30px;
+    left: 0;
+    color: var(--smokeyGrey);
+    text-transform: uppercase;
+    font-weight: 700;
+    font-size: 0.5em;
+}
+
+.error-msg{
+    display: none;
+    bottom: -25px;
+    margin: 0;
+    font-size: 0.4em;
+}
+
+.age-calc_line{
+    align-self: center;
+    grid-row: 2;
+    grid-column: 1 / 5;
+
+    height: 1px;
+
+    text-align: end;
+    
+    margin-right: 30px;
+
+    background: var(--lightGrey);
+}
+
+#age-calc_btn{
+    
+    padding: 18px;
+    
+    border: none;
+    border-radius: 50%;
+    background: var(--purple);
+    
+    cursor: pointer;
+    
+    transform: translateY(-50%);
+    transition: transform 0.2s;
+}
+#age-calc_btn:active{
+    transform: translateY(-50%) scale(0.9);
+}
+
+.age-calc_btn-icon{
+    width: 100%;
+}
+
+/* Form end -----------------------------*/
+
+
+.age-calc_displayer{
+    font-size: 2.2em;
+    margin-top: -20px;
+}
+
+.display{
+    padding: 0;
+    margin: 0;
+    font-family: w-poppins;
+    font-weight: 900;
+    margin-bottom: -20px;
+}
+
+.hyphens{
+    margin-right: 5px;
+    color: var(--purple);
+}
+
+
+
+
+
+
+
+
+
+
+footer{
+    color: var(--white);
+    background-color: #222f3e;
+    text-align: center; 
+    padding: 20px;
+    font-size: 0.5em;
+}
+
+.attribution { 
+}
+.attribution a { 
+    color: hsl(228, 45%, 44%); 
+}
