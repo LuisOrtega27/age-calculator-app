@@ -15,110 +15,25 @@ const ageForm = document.querySelector('#age-calc_form')
 const inputList = document.querySelectorAll('.age-calc_input')
 const hyphens = document.querySelectorAll(`.hyphens`)
 
-const verifyDay = (label, input, error_msg)=>{
 
-    // limitar el numero de digitos (4 para los a;os)
-    if( input.value.length === 3 ) input.value = input.value.slice(0,-1) 
-
-
-    // si el campo esta vacio poner borde gris
-    if( input.value.length === 0 ) {
-        
-        label.style.color = colors.red
-        input.style.borderColor = colors.red
-        
-        error_msg.textContent = 'This field is required'
-        error_msg.style.display = 'block'
-        
-        myForm.submitError.month = true
-
-        return
-    } 
+const verifyDate = (input)=>{
     
-    // verificar si son numeros
-    if( !isNaN(input.value) && input.value > 0 && input.value < 32 ) {
-        
-        label.style.color = colors.purple
-        input.style.borderColor = colors.purple
-        
-        error_msg.style.display = 'none'
-        
-        myForm.submitError.month = false
-        
-    } else {
-        
-        label.style.color = colors.red
-        input.style.borderColor = colors.red
-        
-        error_msg.textContent = 'Must be a valid mont'
-        error_msg.style.display = 'block'
-
-        myForm.submitError.month = true
-
-    } 
-
-    myForm.submitResult.day = input.value
+    // label y mensaje de error de este campo
+    const label = input.nextElementSibling 
+    const error_msg = label.nextElementSibling
     
-}
+    let lengthLimit = input.name==='year' ? 5 : 3
 
-const verifyMonth = (label, input, error_msg)=>{
-    
-    // limitar el numero de digitos (4 para los a;os)
-    if( input.value.length === 3 ) input.value = input.value.slice(0,-1) 
+    let maxNumber = 0
 
-
-    // si el campo esta vacio poner borde gris
-    if( input.value.length === 0 ) {
-        
-        label.style.color = colors.red
-        input.style.borderColor = colors.red
-        
-        error_msg.textContent = 'This field is required'
-        error_msg.style.display = 'block'
-        
-        myForm.submitError.month = true
-
-        myForm.submitResult.month = 0
-
-        return
-    } 
-    
-    // verificar si son numeros
-    if( !isNaN(input.value) && input.value > 0 && input.value < 13 ) {
-        
-        label.style.color = colors.purple
-        input.style.borderColor = colors.purple
-        
-        error_msg.style.display = 'none'
-        
-        myForm.submitError.month = false
-        myForm.submitResult.month = input.value
-        
-    } else {
-        
-        label.style.color = colors.red
-        input.style.borderColor = colors.red
-        
-        error_msg.textContent = 'Must be a valid mont'
-        error_msg.style.display = 'block'
-
-        myForm.submitError.month = true
-        myForm.submitResult.month = 0
-
-    } 
-
-    myForm.submitResult.mont = input.value
-
-}
-
-const verifyYear = (label, input, error_msg)=>{
+    if(input.name === 'day') maxNumber = 31
+    if(input.name === 'month') maxNumber = 12
+    if(input.name === 'year') maxNumber = 9999
 
     let currentDate = new Date()
 
-
     // limitar el numero de digitos (4 para los a;os)
-    if( input.value.length === 5 ) input.value = input.value.slice(0,-1) 
-
+    if( input.value.length === lengthLimit ) input.value = input.value.slice(0,-1) 
 
     // si el campo esta vacio poner borde gris
     if( input.value.length === 0 ) {
@@ -129,24 +44,24 @@ const verifyYear = (label, input, error_msg)=>{
         error_msg.textContent = 'This field is required'
         error_msg.style.display = 'block'
         
-        myForm.submitError.year = true
+        myForm.submitError[`${input.name}`] = true
 
-        myForm.submitResult.year = 0
+        myForm.submitResult[`${input.name}`] = 0
 
         return
     } 
     
     // verificar si son numeros
-    if( !isNaN(input.value) ) {
+    if( !isNaN(input.value) && input.value > 0 && input.value < maxNumber+1) {
         
         label.style.color = colors.purple
         input.style.borderColor = colors.purple
         
         error_msg.style.display = 'none'
         
-        myForm.submitError.year = false
+        myForm.submitError[`${input.name}`] = false
 
-        myForm.submitResult.year = input.value
+        myForm.submitResult[`${input.name}`] = input.value
 
         
     } else {
@@ -154,16 +69,18 @@ const verifyYear = (label, input, error_msg)=>{
         label.style.color = colors.red
         input.style.borderColor = colors.red
         
-        error_msg.textContent = 'Must be a valid year'
+        error_msg.textContent = `Must be a valid ${input.name}`
         error_msg.style.display = 'block'
 
-        myForm.submitError.year = true
+        myForm.submitError[`${input.name}`] = true
 
-        myForm.submitResult.year = 0
-
+        myForm.submitResult[`${input.name}`] = 0
 
     } 
-    
+
+
+    if(input.name !== 'year') return
+
     // verificar si es en el pasado
     if( input.value > currentDate.getFullYear() ){
 
@@ -178,20 +95,6 @@ const verifyYear = (label, input, error_msg)=>{
         myForm.submitResult.year = 0
 
     }
-
-}
-
-const verifyDate = (input)=>{
-    
-    // label y mensaje de error de este campo
-    const label = input.nextElementSibling 
-    const error_msg = label.nextElementSibling
-
-    if(input.name === 'day') verifyDay(label, input, error_msg)
-    
-    if(input.name === 'month') verifyMonth(label, input, error_msg)
-
-    if(input.name === 'year') verifyYear(label, input, error_msg)
 
 }
 
