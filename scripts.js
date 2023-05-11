@@ -19,13 +19,13 @@ const hyphens = document.querySelectorAll(`.hyphens`)
 const verifyDate = (input)=>{
     
     // label y mensaje de error de este campo
+    const inputGroup = input.parentElement
     const label = input.nextElementSibling 
     const error_msg = label.nextElementSibling
     
     let lengthLimit = input.name==='year' ? 5 : 3
 
     let maxNumber = 0
-
     if(input.name === 'day') maxNumber = 31
     if(input.name === 'month') maxNumber = 12
     if(input.name === 'year') maxNumber = 9999
@@ -35,14 +35,13 @@ const verifyDate = (input)=>{
     // limitar el numero de digitos (4 para los a;os)
     if( input.value.length === lengthLimit ) input.value = input.value.slice(0,-1) 
 
-    // si el campo esta vacio poner borde gris
+    // si el campo esta vacio poner borde rojo
     if( input.value.length === 0 ) {
         
-        label.style.color = colors.red
-        input.style.borderColor = colors.red
-        
+        inputGroup.classList.add('validation-error')
+        inputGroup.classList.remove('validation-ok')
+
         error_msg.textContent = 'This field is required'
-        error_msg.style.display = 'block'
         
         myForm.submitError[`${input.name}`] = true
 
@@ -54,10 +53,10 @@ const verifyDate = (input)=>{
     // verificar si son numeros
     if( !isNaN(input.value) && input.value > 0 && input.value < maxNumber+1) {
         
-        label.style.color = colors.purple
-        input.style.borderColor = colors.purple
+
+        inputGroup.classList.add('validation-ok')
+        inputGroup.classList.remove('validation-error')
         
-        error_msg.style.display = 'none'
         
         myForm.submitError[`${input.name}`] = false
 
@@ -66,11 +65,10 @@ const verifyDate = (input)=>{
         
     } else {
         
-        label.style.color = colors.red
-        input.style.borderColor = colors.red
-        
+        inputGroup.classList.add('validation-error')
+        inputGroup.classList.remove('validation-ok')
+
         error_msg.textContent = `Must be a valid ${input.name}`
-        error_msg.style.display = 'block'
 
         myForm.submitError[`${input.name}`] = true
 
@@ -81,14 +79,13 @@ const verifyDate = (input)=>{
 
     if(input.name !== 'year') return
 
-    // verificar si es en el pasado
+    // verificar si el año es en el pasado
     if( input.value > currentDate.getFullYear() ){
 
-        label.style.color = colors.red
-        input.style.borderColor = colors.red
+        inputGroup.classList.add('validation-error')
+        inputGroup.classList.remove('validation-ok')
         
         error_msg.textContent = 'Must be in the past'
-        error_msg.style.display = 'block'
 
         myForm.submitError.year = true
 
@@ -103,7 +100,29 @@ const doSomeMath = ()=>{
 
     const {day, month, year} = myForm.submitResult
 
-    if(day === 0 || month === 0 || year === 0 ) return
+    if(day === 0 || month === 0 || year === 0 ){
+
+        day === 0 &&
+            document.querySelector(`input[name=day]`).parentElement.classList.add('validation-error')
+        
+        month === 0 &&
+            document.querySelector(`input[name=month]`).parentElement.classList.add('validation-error')
+        
+        year === 0 &&
+            document.querySelector(`input[name=year]`).parentElement.classList.add('validation-error')
+
+        return
+    } 
+
+    if(year < 1974 ){
+        let input = document.querySelector(`input[name=year]`)
+        input.parentElement.classList.add('validation-error')
+        let error_msg= input.nextElementSibling.nextElementSibling
+        error_msg.textContent= 'Year must be after1974'
+        return 
+    } 
+
+    console.log({day, month, year})
 
     const tDate = `${year}-${month}-${day}`;
     const date = new Date(tDate);
@@ -124,9 +143,6 @@ const doSomeMath = ()=>{
     hyphens[2].textContent = days
 
 }
-
-
-
 
 
 inputList.forEach( input => input.addEventListener('input', ()=> verifyDate(input) ) )

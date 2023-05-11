@@ -45,6 +45,7 @@
 
 html {
     box-sizing: border-box;
+    height: 100%;
 }
 *, *:before, *:after {
     box-sizing: inherit;
@@ -52,10 +53,10 @@ html {
 
 
 body{
-    
+    position: relative;
     display: grid;
     grid-template-rows: 1fr auto;
-    height: 100vh;
+    height: 100%;
     margin: 0;
     
     font-family: poppins;
@@ -72,7 +73,8 @@ body{
 }
 
 .age-calc{
-    width: 700px;
+    width: 60%;
+    margin: auto;
     background-color: var(--white);
     padding: 40px;
     border-radius: 15px 15px 200px 15px;
@@ -95,7 +97,7 @@ body{
     height: 100%;
     width: 100%;
     padding: 15px;
-    font-size: 32px;
+    font-size: 1em;
     font-weight: 700;
     border: solid 1px var(--lightGrey);
     border-radius: 5px;
@@ -124,6 +126,30 @@ body{
     font-size: 0.4em;
     color: var(--lightRed)
 }
+
+/* -----------input validation ok-------------- */
+.validation-ok label{
+    color: var(--purple);
+}
+.validation-ok > input{
+    border-color: var(--purple);
+}
+.validation-ok > .error-msg{
+    display: none;
+}
+
+/* ------------input validation error------------- */
+.validation-error label{
+    color: var(--lightRed);
+}
+.validation-error > input{
+    border-color: var(--lightRed);
+}
+.validation-error > .error-msg{
+    display: block;
+}
+
+
 
 .age-calc_line{
     align-self: center;
@@ -198,8 +224,71 @@ footer{
     font-size: 0.5em;
 }
 
-.attribution { 
-}
 .attribution a { 
-    color: hsl(228, 45%, 44%); 
+    color: hsl(228, 76%, 62%); 
+}
+
+
+@media screen and (max-width: 1150px) {
+    body{
+        font-size: 1.6em;
+    }
+    .age-calc{
+        width: 60%;
+    }
+}
+@media screen and (max-width: 950px) {
+    body{
+        font-size: 1.4em;
+    }
+    .age-calc{
+        width: 80%;
+    }
+}
+@media screen and (max-width: 750px) {
+    body{
+        font-size: 1em;
+    }
+    .age-calc{
+        border-radius: 15px 15px 100px 15px;
+        padding: 15px;
+        padding-bottom: 30px;
+    }
+
+    .age-calc_form{
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: repeat(2, 80px);
+        gap: 5px;
+    }
+
+    .input-group > input{
+        padding: 5px;
+        padding-left: 15px;
+    }
+    .age-calc_line{
+        
+        text-align: center;
+        margin: 0;
+        margin-top: 20px;
+    }
+    #age-calc_btn{
+        padding: 14px;
+        width: 60px;
+        height: 60px;
+    }
+
+    .age-calc_displayer{
+        margin-top: 10px;
+    }
+
+    .input-group label, .error-msg{
+        font-size: 0.7em;
+        padding-top: 10px;
+        bottom: -40px;
+    }
+}
+@media screen and (max-width: 375px) {
+    .age-calc{
+        min-width: 300px;
+    }
 }
