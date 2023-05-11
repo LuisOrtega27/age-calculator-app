@@ -93,6 +93,15 @@ const verifyDate = (input)=>{
 
     }
 
+    if( input.value < 1974 ){
+        inputGroup.classList.add('validation-error')
+        inputGroup.classList.remove('validation-ok')
+        error_msg.textContent= 'Year must be after 1974'
+
+        myForm.submitError.year = true
+        myForm.submitResult.year = 0
+    } 
+
 }
 
     // no meth
@@ -114,14 +123,6 @@ const doSomeMath = ()=>{
         return
     } 
 
-    if(year < 1974 ){
-        let input = document.querySelector(`input[name=year]`)
-        input.parentElement.classList.add('validation-error')
-        let error_msg= input.nextElementSibling.nextElementSibling
-        error_msg.textContent= 'Year must be after1974'
-        return 
-    } 
-
     console.log({day, month, year})
 
     const tDate = `${year}-${month}-${day}`;
@@ -138,9 +139,9 @@ const doSomeMath = ()=>{
     const months = Math.floor(weeks / 4)
     const years = Math.floor(months / 12)
 
-    hyphens[0].textContent = years
-    hyphens[1].textContent = months
-    hyphens[2].textContent = days
+    hyphens[0].textContent = Math.floor(years)
+    hyphens[1].textContent = Math.floor(months)
+    hyphens[2].textContent = Math.floor(days)
 
 }
 
