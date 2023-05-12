@@ -93,15 +93,6 @@ const verifyDate = (input)=>{
 
     }
 
-    if( input.value < 1974 ){
-        inputGroup.classList.add('validation-error')
-        inputGroup.classList.remove('validation-ok')
-        error_msg.textContent= 'Year must be after 1974'
-
-        myForm.submitError.year = true
-        myForm.submitResult.year = 0
-    } 
-
 }
 
     // no meth
@@ -119,32 +110,36 @@ const doSomeMath = ()=>{
         
         year === 0 &&
             document.querySelector(`input[name=year]`).parentElement.classList.add('validation-error')
-
         return
     } 
 
     console.log({day, month, year})
 
-    const tDate = `${year}-${month}-${day}`;
-    const date = new Date(tDate);
+    const selectedDate = `${year}-${month}-${day}`;
+
+    const dateTarget = new Date(selectedDate);
+    const dateOrigin = Date.now();
+
+    console.log(`since 1970: ${dateOrigin}`)
+    console.log(`since target: ${dateTarget}`)
+
+    const miliseconds = dateOrigin - dateTarget;
     
-    const miliseconds = date.getTime() / 1000;
-    const seconds = miliseconds
+    const seconds = miliseconds / 1000
     const minutes = seconds / 60
     const hours = minutes / 60
     
-    const days = (hours / 24) - (365*3)
+    const days = hours / 24
 
-    const weeks = Math.floor(days / 7)
-    const months = Math.floor(weeks / 4)
-    const years = Math.floor(months / 12)
+    const years = days / 365
+
+    const months = years * 12
 
     hyphens[0].textContent = Math.floor(years)
     hyphens[1].textContent = Math.floor(months)
     hyphens[2].textContent = Math.floor(days)
 
 }
-
 
 inputList.forEach( input => input.addEventListener('input', ()=> verifyDate(input) ) )
 ageForm.addEventListener( 'submit', event => {
